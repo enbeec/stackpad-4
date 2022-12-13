@@ -39,11 +39,12 @@ Adafruit_NeoKey_1x4 neokey;
 // G8 on MicroMod ATP board
 #define AUXKEY_INTERRUPT_PIN 33
 
-// 32 bit ints are fastest on Teensy
+// we only need 6 bits but 32 is faster on Teensy
 volatile uint32_t keypadState = 0;
-#define KEY(i) bitRead(keypadState, i)
-
 volatile uint32_t keypadDelta = 0;
+
+// getters
+#define KEY(i) bitRead(keypadState, i)
 #define KEY_DELTA(i) bitRead(keypadDelta, i)
 
 // please inline this, Mr. Compiler
