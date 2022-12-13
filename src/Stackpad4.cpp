@@ -46,18 +46,18 @@ volatile uint32_t keypadState = 0;
 volatile uint32_t keypadDelta = 0;
 #define KEY_DELTA(i) bitRead(keypadDelta, i)
 
-// rightmask shifts left (masking the right side)
-#define RIGHTMASK32(n) (0xffff << n)
-// leftmask shifts left and inverts (masking the left side)
-#define LEFTMASK32(n) ~(0xffff << n)
-
 // please inline this, Mr. Compiler
 static inline void keypadUpdate(int value, int offset) {
-    uint32_t updated = (value << offset) & LEFTMASK32(offset);
-    updated |= keypadState & RIGHTMASK32(offset);
+    // mask off the rightmost bits after offset
+    uint32_t mask = 0xffff << offset;
+    uint32_t updated = (value << offset) & mask;
 
+    // invert the mask when ORing in the old state
+    mask = ~mask;
+    updated |= keypadState & mask;
+
+    // store results
     keypadDelta = keypadState ^ updated;
-
     keypadState = updated;
 }
 
