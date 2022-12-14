@@ -2,27 +2,21 @@
 #include <SPI.h>
 #include <Adafruit_NeoKey_1x4.h>
 #include <seesaw_neopixel.h>
-#include <PCF8574.h>
-#include <Wire.h>
 
 // ======= KEYPAD CONSTANTS ========
-#define PCF_ADDR 0x20
-// Adafruit_NeoKey_1x4.h provides NEOKEY_1x4_ADDR
-
 /* Stackpad4 is a keypad for (at its simplest) manipulating a 4bit stack.
  * The neokey 1x4 is arranged MSB-to-LSB starting with 0.
- * The auxkey (pcf) is currently just push (down arrow) and pop (up arrow). */
+ */
 #define K_8 0
 #define K_4 1
 #define K_2 2
 #define K_1 3
-#define K_PUSH 4
-#define K_POP 5
+// #define K_PUSH 4
+// #define K_POP 5
 
 // layout
-#define NUM_KEYS 6
+#define NUM_KEYS 4
 #define NUM_NEOKEYS 4
-#define NUM_AUXKEYS 2
 
 // offsets
 #define NEOKEY_OFFSET 0 // start
@@ -30,7 +24,6 @@
 // #define FOOKEY_OFFSET 6 // etc...
 
 // ======= KEYPAD GLOBALS ========
-PCF8574 pcf(PCF_ADDR);
 Adafruit_NeoKey_1x4 neokey;
 
 // ======= KEYPAD INTERRUPTS ========
@@ -73,24 +66,11 @@ inline void keypadIRSetup() {
 #define PIX_PURPLE  0xAA00AA
 
 void keyHook(int key) {
-    if (key < NUM_NEOKEYS) {
-        Serial.print("neokey ");
-        if (KEY(key)) {
-            Serial.print("keydown: ");
-            neokey.pixels.setPixelColor(key, PIX_PURPLE);
-        } else {
-            Serial.print("keyup:   ");
-            neokey.pixels.setPixelColor(key, PIX_OFF);
-        }
+    if (KEY(key)) {
+        neokey.pixels.setPixelColor(key, PIX_PURPLE);
     } else {
-        Serial.print("auxkey ");
-        if (KEY(key)) {
-            Serial.print("keydown: ");
-        } else {
-            Serial.print("keyup:   ");
-        }
+        neokey.pixels.setPixelColor(key, PIX_OFF);
     }
-    Serial.println(key);
 }
 
 inline void keyHandler() {
@@ -112,14 +92,6 @@ void keypadSetup() {
         while(1) delay(3000);
     } else {
         Serial.println("NeoKey 1x4 Connected");
-    }
-    
-    if (! pcf.begin()) {
-        Serial.println("Failed to start PCF8574 -- aborting");
-        // loop forever
-        while(1) delay(3000);
-    } else {
-        Serial.println("PCF8574 Connected");
     }
     
     Serial.println("Setting up keypad interrupt routines.");
