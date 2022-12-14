@@ -6,6 +6,8 @@
  */
 #include <keypad.h>
 
+#define DEBUG_KEYPAD
+
 // globals
 Adafruit_NeoKey_1x4 neokey;
 volatile uint32_t keypadState = 0;
@@ -21,24 +23,34 @@ volatile uint32_t keypadDelta = 0;
 
 void keyHook(int key) {
     if (KEY(key)) {
-        neokey.pixels.setPixelColor(key, PIX_PURPLE);
+        #ifdef DEBUG_KEYPAD
+        Serial.printf("%i down\n", key);
+        #endif
     } else {
-        neokey.pixels.setPixelColor(key, PIX_OFF);
+        #ifdef DEBUG_KEYPAD
+        Serial.printf("%i up\n", key);
+        #endif
     }
 }
 
 inline void keyHandler() {
+    #ifdef DEBUG_KEYPAD
+    if (keypadDelta) {
+        Serial.printf(
+            "%i%i%i%i\n", 
+            KEY(0), KEY(1), KEY(2), KEY(3)
+        );
+    }
+    #endif
     for (uint8_t i = 0; i < NUM_KEYS; i++) {
         if (KEY_DELTA(i)) keyHook(i);
     }
-    
-    if (neokey.pixels.canShow()) neokey.pixels.show();
     
     keypadDelta = 0;
 }
 
 // ======= MAIN ========
-int delayMs = 20;
+#define DELAY_MS 50
 
 void setup()
 {
@@ -50,5 +62,5 @@ void setup()
 void loop()
 {
     keyHandler();
-    delay(delayMs);
+    delay(DELAY_MS);
 }

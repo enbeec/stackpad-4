@@ -32,7 +32,7 @@ extern volatile uint32_t keypadDelta;
 extern Adafruit_NeoKey_1x4 neokey;
 
 // inlining this because it's potentially hot and very short
-static void keypadUpdate(int value, int offset) {
+void keypadUpdate(int value, int offset) {
     // start by masking off the rightmost bits after offset
     uint32_t mask = 0xffff << offset;
     uint32_t updated = (value << offset) & mask;
@@ -61,7 +61,7 @@ void keypadSetup() {
     }
     
     Serial.println("Setting up keypad interrupt routines.");
-    attachInterrupt(NEOKEY_INTERRUPT_PIN, neokeyIR, FALLING);
+    attachInterrupt(NEOKEY_INTERRUPT_PIN, neokeyIR, LOW);
 
     Serial.println("Keypad setup complete!");
 }
