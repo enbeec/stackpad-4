@@ -36,8 +36,6 @@ Adafruit_NeoKey_1x4 neokey;
 // ======= KEYPAD INTERRUPTS ========
 // G11 on MicroMod ATP board
 #define NEOKEY_INTERRUPT_PIN 27
-// G8 on MicroMod ATP board
-#define AUXKEY_INTERRUPT_PIN 33
 
 // we only need 6 bits but 32 is faster on Teensy
 volatile uint32_t keypadState = 0;
@@ -66,13 +64,8 @@ void neokeyIR() {
     keypadUpdate(neokey.read(), NEOKEY_OFFSET);
 }
 
-void auxkeyIR() {
-    keypadUpdate(pcf.readButton8(), AUXKEY_OFFSET);
-}
-
 inline void keypadIRSetup() {
-    attachInterrupt(NEOKEY_INTERRUPT_PIN, neokeyIR, LOW);
-    attachInterrupt(AUXKEY_INTERRUPT_PIN, auxkeyIR, LOW);
+    attachInterrupt(NEOKEY_INTERRUPT_PIN, neokeyIR, FALLING);
 }
 
 // ======= KEYPAD HANDLER =======
@@ -106,6 +99,8 @@ inline void keyHandler() {
     }
     
     if (neokey.pixels.canShow()) neokey.pixels.show();
+    
+    keypadDelta = 0;
 }
 
 // ====== KEYPAD SETUP =======
