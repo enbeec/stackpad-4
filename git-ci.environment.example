@@ -1,0 +1,2 @@
+# battery-babe hardware projects (only one may be active at once)
+bb_hardware='stackpad-4.git-ci'
