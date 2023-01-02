@@ -10,7 +10,7 @@
             "includePath": [
                 "/home/val/stackpad-4/include",
                 "/home/val/stackpad-4/src",
-                "/home/val/stackpad-4/.pio/libdeps/teensymm/PCF8574",
+                "/home/val/stackpad-4/.pio/libdeps/teensymm/SparkFun Qwiic Alphanumeric Display Arduino Library/src",
                 "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit seesaw Library",
                 "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit BusIO",
                 "/home/val/.platformio/packages/framework-arduinoteensy/libraries/SPI",
@@ -19,6 +19,8 @@
                 "/home/val/.platformio/packages/framework-arduinoteensy/cores/teensy4",
                 "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit GFX Library",
                 "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit ST7735 and ST7789 Library",
+                "/home/val/stackpad-4/.pio/libdeps/teensymm/doctest/doctest",
+                "/home/val/stackpad-4/.pio/libdeps/teensymm/doctest",
                 "/home/val/.platformio/packages/framework-arduinoteensy/libraries/ADC",
                 "/home/val/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper/src",
                 "/home/val/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_NeoPixel",
@@ -122,7 +124,7 @@
                 "path": [
                     "/home/val/stackpad-4/include",
                     "/home/val/stackpad-4/src",
-                    "/home/val/stackpad-4/.pio/libdeps/teensymm/PCF8574",
+                    "/home/val/stackpad-4/.pio/libdeps/teensymm/SparkFun Qwiic Alphanumeric Display Arduino Library/src",
                     "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit seesaw Library",
                     "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit BusIO",
                     "/home/val/.platformio/packages/framework-arduinoteensy/libraries/SPI",
@@ -131,6 +133,8 @@
                     "/home/val/.platformio/packages/framework-arduinoteensy/cores/teensy4",
                     "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit GFX Library",
                     "/home/val/stackpad-4/.pio/libdeps/teensymm/Adafruit ST7735 and ST7789 Library",
+                    "/home/val/stackpad-4/.pio/libdeps/teensymm/doctest/doctest",
+                    "/home/val/stackpad-4/.pio/libdeps/teensymm/doctest",
                     "/home/val/.platformio/packages/framework-arduinoteensy/libraries/ADC",
                     "/home/val/.platformio/packages/framework-arduinoteensy/libraries/AccelStepper/src",
                     "/home/val/.platformio/packages/framework-arduinoteensy/libraries/Adafruit_NeoPixel",
@@ -240,6 +244,7 @@
                 "CORE_TEENSY",
                 "F_CPU=600000000",
                 "LAYOUT_US_ENGLISH",
+                "DOCTEST_CONFIG_COLORS_NONE",
                 ""
             ],
             "cppStandard": "c++14",
