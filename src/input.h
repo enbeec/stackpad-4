@@ -18,6 +18,7 @@ namespace Input {
             void attach(Input::Hook newHook);
             void detach();
             void handle();
+            uint32_t getState();
 
         private:
             const static int NEOKEY_START;

@@ -57,9 +57,13 @@ void Keypad::setup()
     Serial.println("Keypad setup complete!");
 };
 
+uint32_t Keypad::getState() {
+        return state;
+}
+
 void Keypad::attach(Input::Hook newHook)
 {
-    hook = newHook;
+    hook = *newHook;
 };
 
 void Keypad::detach()
@@ -69,11 +73,13 @@ void Keypad::detach()
 
 void Keypad::handle()
 {
-    for (uint8_t i = 0; i < NUM_KEYS; i++)
-    {
-        if (bitRead(delta, i))
-            hook(static_cast<Input::Key>(i));
-    }
+    if (delta != 0) {
+        for (uint8_t i = 0; i < NUM_KEYS; i++)
+        {
+            if (bitRead(delta, i))
+                hook(static_cast<Input::Key>(i));
+        }
 
-    delta = 0;
+        delta = 0;
+    }
 };
